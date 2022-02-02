@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="html-struktur.css">
+    <title>HTML Struktur</title>
+</head>
+<body>
+    <header>
+        <h1>Titel</h1>
+       
+    </header>
+
+    <main>
+        <h2>Undertitel</h2>
+
+        <section >
+
+            <article>
+
+                <img src="https://placeimg.com/640/480/nature" alt="">
+
+                <h3>Article 1</h3>
+    
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                    Ipsum sapiente placeat commodi aspernatur expedita dicta dolorum autem reprehenderit 
+                    id asperiores. Excepturi, repudiandae. Facilis voluptas, expedita dignissimos 
+                    consequuntur omnis exercitationem possimus.
+                </p>
+
+            </article>
+
+            <article>
+
+                <img src="https://placeimg.com/640/480/animals" alt="">
+
+                <h3>Article 2</h3>
+    
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                    Ipsum sapiente placeat commodi aspernatur expedita dicta dolorum autem reprehenderit 
+                    id asperiores. Excepturi, repudiandae. Facilis voluptas, expedita dignissimos 
+                    consequuntur omnis exercitationem possimus.
+                </p>
+
+            </article>
+
+
+
+        </section>
+
+
+    </main>
+
+    <footer> 
+        
+        This is the footer
+
+    </footer>
+
+    <script>
+
+        //overskift h1
+        const overskrift = document.querySelector("h1");
+        overskrift.textContent;
+        console.log(overskrift.textContent)
+
+        //udskift tekst på overskrift h1
+
+        overskrift.textContent = "Billeder";
+        console.log(overskrift.textContent)
+
+        //overskrift h3
+
+        const natur = document.querySelector("article:nth-child(1) h3")
+        console.log(natur)
+
+        const dyr = document.querySelector("article:nth-child(2) h3")
+        console.log(dyr)
+
+        //udskift tekst på h3
+        natur.textContent = "Natur";
+        console.log(natur.textContent)
+
+        dyr.textContent = "Dyr";
+        console.log(dyr.textContent)
+
+
+
+
+
+
+
+        //section
+        const section = document.querySelector("section")
+        console.log(section)
+
+        //articles
+
+        const article1 = document.querySelector("article:first-child");
+        console.log(article1)
+
+        const article2 = document.querySelector("article:nth-child(2)");
+        article2.textContent
+        console.log(article2.textContent)
+
+
+
+        //img
+        const img1 = document.querySelector("article:nth-child(1) img")
+        console.log(img1)
+
+        const img2 = document.querySelector("article:nth-child(2) img")
+        console.log(img2)
+
+        //Udskift img og alt attribut
+        img1.src = "https://placeimg.com/640/480/people";
+        img2.src = "https://placeimg.com/640/480/tech";
+
+        img1.alt = "billede af nogle personer"
+        img2.alt = "billede af tech"
+
+
+
+
+
+        //tekst
+        const p1 = document.querySelector("article:nth-child(1) p")
+        console.log(p1)
+
+        const p2 = document.querySelector("article:nth-child(2) p")
+        console.log(p2)
+
+        //Udskift tekst 
+        p1.textContent = "Her er noget billede af natur";
+        console.log(p1.textContent)
+
+        p2.innerHTML = "her er <b>noget</b> billede af dyr";
+        console.log(p2.innerHTML)
+
+
+        //footer 
+        const footer = document.querySelector("footer")
+        footer.textContent
+        console.log(footer.textContent)
+
+
+
+
+        
+    </script>
+</body>
+</html>
