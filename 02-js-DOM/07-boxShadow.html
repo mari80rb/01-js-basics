@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="html-struktur.css">
+    <title>Skift billede</title>
+    <style>
+
+        .box_shadow {
+
+            box-shadow: 0px 3px 11px 10px rgba(0,0,0,0.38);
+            -webkit-box-shadow: 0px 3px 11px 10px rgba(0,0,0,0.38);
+            -moz-box-shadow: 0px 3px 11px 10px rgba(0,0,0,0.38);
+
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Titel</h1>
+       
+    </header>
+
+    <main>
+        <h2>Undertitel</h2>
+
+        <section >
+
+            <article>
+
+                <img src="https://placeimg.com/640/480/nature" alt="">
+
+                <h3>Article 1</h3>
+    
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                    Ipsum sapiente placeat commodi aspernatur expedita dicta dolorum autem reprehenderit 
+                    id asperiores. Excepturi, repudiandae. Facilis voluptas, expedita dignissimos 
+                    consequuntur omnis exercitationem possimus.
+                </p>
+
+            </article>
+
+            <article>
+
+                <img src="https://placeimg.com/640/480/animals" alt="">
+
+                <h3>Article 2</h3>
+    
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                    Ipsum sapiente placeat commodi aspernatur expedita dicta dolorum autem reprehenderit 
+                    id asperiores. Excepturi, repudiandae. Facilis voluptas, expedita dignissimos 
+                    consequuntur omnis exercitationem possimus.
+                </p>
+
+            </article>
+
+
+
+        </section>
+
+
+    </main>
+
+    <footer> 
+        
+        This is the footer
+
+    </footer>
+
+    <script>
+
+
+        ///////////DOMCONTENTLOAD/////////
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start(){
+
+            console.log("dom er loaded");
+            
+            //overskift h1
+            const h1 = document.querySelector("h1");
+            h1.textContent;
+            console.log(h1.textContent)
+
+            //udskift tekst på overskrift h1
+
+            h1.textContent = "Billeder";
+            console.log(h1.textContent)
+
+            //overskrift h3
+
+            const natur = document.querySelector("article:nth-child(1) h3")
+            console.log(natur)
+
+            const dyr = document.querySelector("article:nth-child(2) h3")
+            console.log(dyr)
+
+            //udskift tekst på h3
+            natur.textContent = "Natur";
+            console.log(natur.textContent)
+
+            dyr.textContent = "Dyr";
+            console.log(dyr.textContent)
+
+
+
+
+
+
+
+            //section
+            const section = document.querySelector("section")
+            console.log(section)
+
+            //articles
+
+            const article1 = document.querySelector("article:first-child");
+            console.log(article1)
+
+            const article2 = document.querySelector("article:nth-child(2)");
+            article2.textContent
+            console.log(article2.textContent)
+
+            /////////////TILFØJELSE (APPEND)/////////////
+
+            //Ny artikel
+            let newArticle = document.createElement("article");
+            //ny img element
+            let img3 = document.createElement("img")
+            img3.src = "https://placeimg.com/640/480/animals";
+            //tilføj img til article
+            newArticle.appendChild(img3);
+            //Ny h3 element
+            let overskrift1 = document.createElement("h3");
+            //Tekst til ny overskrift
+            let overskriftText = document.createTextNode("Article 3 - Dyr");
+            //Indsæt tekst i overskrift
+            overskrift1.appendChild(overskriftText);
+            //tilføj overskrift til article
+            newArticle.appendChild(overskrift1);
+            //ny p element
+            let pElement = document.createElement("p");
+            //Tekst til ny p element
+            let pText = document.createTextNode("Her er noget billede af dyr");
+            //Indsæt p element i article
+            pElement.appendChild(pText);
+            //tilføje p Element til article
+            newArticle.appendChild(pElement);
+
+            //tilføj artikel til section
+            let mainSection = document.querySelector("section");
+            mainSection.appendChild(newArticle);
+
+        
+
+        
+            //img
+            const img1 = document.querySelector("article:nth-child(1) img")
+            console.log(img1)
+
+            const img2 = document.querySelector("article:nth-child(2) img")
+            console.log(img2)
+
+            //Udskift img og alt attribut
+            img1.src = "https://placeimg.com/640/480/people";
+            img2.src = "https://placeimg.com/640/480/tech";
+
+            img1.alt = "billede af nogle personer"
+            img2.alt = "billede af tech"
+
+
+
+
+
+            //tekst
+            const p1 = document.querySelector("article:nth-child(1) p")
+            console.log(p1)
+
+            const p2 = document.querySelector("article:nth-child(2) p")
+            console.log(p2)
+
+            //Udskift tekst 
+            p1.textContent = "Her er noget billede af natur";
+            console.log(p1.textContent)
+
+            p2.innerHTML = "her er <b>noget</b> billede af tech";
+            console.log(p2.innerHTML)
+
+
+            //footer 
+            const footer = document.querySelector("footer")
+            footer.textContent
+            console.log(footer.textContent)
+
+
+            ///////////CLICK EVENT LISTENER/////////
+
+            img1.addEventListener("click", skiftBillede);
+
+            function skiftBillede(){
+                img1.src = "https://placeimg.com/640/480/tech";
+                console.log("billedet er nu skiftet ud");
+            }
+
+
+            //PÅLÆG KLASSE PÅ ARTICLES
+            article1.classList.add("box_shadow");
+            article2.classList.add("box_shadow");
+            newArticle.classList.add("box_shadow");
+
+            //Mouseover og mouseout eventhandler på articles
+            article1.addEventListener("mouseover", rulVæk);
+            article1.addEventListener("mouseout", rulPå);
+
+            article2.addEventListener("mouseover", a2Væk);
+            article2.addEventListener("mouseout", a2På);
+
+            newArticle.addEventListener("mouseover", rulVæk);
+            newArticle.addEventListener("mouseout", rulPå);
+
+
+            function rulVæk(){
+                article1.classList.remove("box_shadow");
+                
+                newArticle.classList.remove("box_shadow");
+            }
+
+            function a2Væk(){
+                article2.classList.remove("box_shadow");
+
+            }
+
+            function a2På(){
+                article2.classList.toggle("box_shadow");
+            }
+
+
+            function rulPå(){
+                article1.classList.toggle("box_shadow");
+                
+                newArticle.classList.toggle("box_shadow");
+            }
+
+        }
+
+
+
+
+
+
+        
+    </script>
+</body>
+</html>
