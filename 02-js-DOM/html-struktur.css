@@ -1,9 +1,12 @@
-main {
+section {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-#section1 {
+article {
+  grid-column: 1/2;
+}
+/*#section1 {
   grid-column: 1/2;
   outline: solid;
   margin-bottom: 2%;
@@ -15,7 +18,7 @@ main {
   outline: solid;
   margin-bottom: 2%;
   margin-left: 2%;
-}
+}*/
 
 header,
 footer {
