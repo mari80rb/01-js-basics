@@ -43,20 +43,11 @@
             const navn = `${dyr.navn}`;
 
             destination.querySelector("h3").textContent = navn;
+            destination.querySelector("img").src = dyr.billede;
             destination.querySelector("p").textContent = destination.querySelector("p").textContent + " " + dyr.type;
             destination.querySelector("p:last-child").textContent = destination.querySelector("p:last-child").textContent + " " + dyr.levested;
-
-
-
-            destination.querySelector("img").src = dyr.billede;
-
-
-            
+  
         }
-
-
-
-
 
 
 
