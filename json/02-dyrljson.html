@@ -57,6 +57,7 @@
                 klon.querySelector("p").textContent = `Type: ${objekt.type}`;
                 klon.querySelector(".levested").textContent = `Levested: ${objekt.levested}`;
 
+                
                 objekt.egenskab.forEach(egenskaber =>{
                     klon.querySelector(".egenskabsliste").innerHTML += "<li>" + egenskaber + "</li>"
                 })
