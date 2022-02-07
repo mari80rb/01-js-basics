@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babushka Bistro</title>
+
+    <style>
+
+        h2, p{
+            margin-left: 2%;
+        }
+
+       
+        img{
+            max-width: 100%;
+        }
+
+        section{
+            display: grid;
+           grid-template-columns: repeat(4, 1fr); 
+           grid-gap: 5px;
+        }
+
+        article {
+            border: 1px solid rgb(0, 0, 0);
+           min-height: 100px;
+        }
+    </style>
+
+  
+</head>
+<body>
+
+    <h1>Menu</h1>
+
+    <section></section>
+    
+    <template>
+        
+        <article>
+            <img src="" alt="">
+            <h2></h2>
+            
+            <p class="kortbeskrivelse"></p>
+            <p class="pris"></p>
+            
+
+        </article>
+    </template>
+
+    <script>
+
+        const container = document.querySelector("section");
+        const temp = document.querySelector("template");
+
+        const url = "https://babushka-dd8a.restdb.io/rest/menu";
+        const key = " 600ec2fb1346a1524ff12de4"; 
+        let data = [];
+
+        const options= {
+            headers: {
+                "x-apikey": key,
+            },
+        };
+
+        async function hentdata() {
+            const respons = await fetch(url, options);
+            const json = await respons.json();
+            vis(json);
+        }
+
+        function vis(menuliste){
+            console.log(menuliste)
+            //løb igennem array med personer
+            menuliste.forEach((menu) => {
+                const klon = temp.cloneNode(true).content;
+                klon.querySelector("h2").textContent = menu.navn;
+                klon.querySelector(".kortbeskrivelse").textContent = menu.kortbeskrivelse;
+                klon.querySelector(".pris").textContent = `Pris: ${menu.pris}` + ".-";
+                
+                klon.querySelector("img").src = "medium/" + menu.billednavn + "-md.jpg";
+
+
+
+
+                container.appendChild(klon);
+
+
+            });
+            
+            
+            
+        }
+    
+
+        hentdata();
+
+
+    </script>
+</body>
+</html>
