@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persongalleri</title>
+
+    <style>
+
+        h2, h1, p{
+            text-align: center;
+        }
+        img{
+            max-width: 100%;
+        }
+
+        section{
+            display: grid;
+           grid-template-columns: repeat(4, 1fr); 
+           grid-gap: 5px;
+        }
+
+        article {
+            border: 1px solid rgb(240, 8, 8);
+           min-height: 100px;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 5%;
+        }
+
+        .valgt{
+            background-color: red;
+
+        }
+
+        #popup{
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: scroll;
+        }
+
+        #popup article {
+            width: 80vw;
+            display: flex;
+            margin: 4rem auto;
+            border-radius: 25px;
+            padding: 12px;
+            background-color: green;
+        }
+
+       #luk{
+            position: fixed;
+            padding: 1rem;
+            font-size: 1.7rem;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+
+  
+</head>
+<body>
+
+    
+
+     <section id="popup">
+        <div id="luk">&#x2715</div>
+        <article>
+            <h2></h2>
+            <img src="" alt="">
+            <h3>Titel: <span class="titel"></span></h3>
+            <p>Email: <span class="email"></span></p>
+            <p>Fødselsdag: <span class="fdag"></span></p>
+            <p>Hobby: <span class="hobby"></span></p>
+            <p>Troende: <span class="tro"></span></p>
+
+        </article>
+
+    </section> 
+
+    <h1>Alle</h1>
+
+    <nav>
+        <button data-troende="alle" class="valgt">Alle</button>
+        <button data-troende="ja" class="ja">Troende</button>
+        <button data-troende="nej">Ikke-troende</button>
+        <button data-troende="tvivler">Tvivler</button>
+    </nav>
+
+    <section></section>
+    
+    <template>
+        
+        <article>
+            
+            <h2></h2>
+            <img src="" alt="">
+            <p class="email"></p>
+            <p class="hobby"></p>
+            <p class="troende"></p>
+
+        </article>
+    </template>
+
+    <script>
+
+
+
+        const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+        const key = "600fe9211346a1524ff12e31"; 
+
+        let personliste;
+        const header = document.querySelector("h1")
+        
+
+        const options= {
+            headers: {
+                "x-apikey": key,
+            },
+        };
+
+        document.addEventListener("DOMContentLoaded", start);
+        let filter = "alle";
+        //første funktion der kaldes efter dom er loaded
+        function start(){
+            const filterKnapper = document.querySelectorAll("nav button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrerPersoner));
+            hentdata();
+        }
+        //eventlistener knyttet til knapperne der vælger hvad for et filter der er aktivt
+        function filtrerPersoner(){
+            filter = this.dataset.troende; //Sæt variabel "filter" til værdien af data-troende på den knap der er klikket på
+            document.querySelector(".valgt").classList.remove("valgt") //fjern klassen valgt på den knap
+            this.classList.add("valgt") //marker den knap der klikket på 
+            vis(); // Kald funktionen vis() efter det nye filter er sat
+            header.textContent = this.textContent;
+        }
+        
+
+
+
+        async function hentdata() {
+            const respons = await fetch(url, options);
+            personliste = await respons.json();
+            console.log("Personliste", personliste)
+            vis();
+        }
+
+
+
+        function vis(){
+            console.log(personliste);
+            const container = document.querySelector("section");
+            const temp = document.querySelector("template");
+            container.textContent = ""; // Ryd container inden ny loop
+            
+            
+            personliste.forEach((person) => {
+                console.log("Troende", person.troende)
+                //loop igennem json (personliste)
+                //tjek hvilken tro personen har og sammenlign med aktuelt filter eller vis alle, hvis værdien har "alle"
+                if (filter == person.troende || filter == "alle"){
+
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = person.fornavn;
+                    klon.querySelector(".email").textContent = `Email: ${person.email}`;
+                    klon.querySelector(".hobby").textContent = `Hobby: ${person.hobby}`;
+                    klon.querySelector(".troende").textContent = `Troende: ${person.troende}`;
+                
+                    //klon.querySelector("img").src = "faces/" + person.billede;
+
+                    container.appendChild(klon);
+
+                }
+
+
+
+            });
+            
+            
+            
+        }
+    
+
+        hentdata();
+
+
+    </script>
+</body>
+</html>
