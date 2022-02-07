@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persongalleri</title>
+
+    <style>
+
+        h2, h1, p{
+            text-align: center;
+        }
+        img{
+            max-width: 100%;
+        }
+
+        section{
+            display: grid;
+           grid-template-columns: repeat(4, 1fr); 
+           grid-gap: 5px;
+        }
+
+        article {
+            border: 1px solid rgb(240, 8, 8);
+           min-height: 100px;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 5%;
+        }
+
+        .valgt{
+            background-color: red;
+
+        }
+    </style>
+
+  
+</head>
+<body>
+
+    <h1>Persongalleri</h1>
+
+    <nav>
+        <button data-troende="alle">Alle</button>
+        <button data-troende="ja" class="valgt">Troende</button>
+        <button data-troende="nej">Ikke-troende</button>
+        <button data-troende="tvivler">Tvivler</button>
+    </nav>
+
+    <section></section>
+    
+    <template>
+        
+        <article>
+            
+            <h2></h2>
+            <img src="" alt="">
+            <p class="email"></p>
+            <p class="hobby"></p>
+            <p class="troende"></p>
+
+        </article>
+    </template>
+
+    <script>
+
+        const container = document.querySelector("section");
+        const temp = document.querySelector("template");
+
+        const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+        const key = "600fe9211346a1524ff12e31"; 
+        let data = [];
+        let filter = "ja";
+
+        const options= {
+            headers: {
+                "x-apikey": key,
+            },
+        };
+
+        async function hentdata() {
+            const respons = await fetch(url, options);
+            const json = await respons.json();
+            vis(json);
+        }
+
+        function vis(personliste){
+            console.log(personliste)
+            //løb igennem array med personer
+            personliste.forEach((person) => {
+                //loop igennem json (personer)
+                if (filter == person.troende){
+
+                    const klon = temp.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = person.fornavn;
+                    klon.querySelector(".email").textContent = `Email: ${person.email}`;
+                    klon.querySelector(".hobby").textContent = `Hobby: ${person.hobby}`;
+                    klon.querySelector(".troende").textContent = `Troende: ${person.troende}`;
+                
+                    //klon.querySelector("img").src = "faces/" + person.billede;
+
+                    container.appendChild(klon);
+
+                }
+
+
+
+            });
+            
+            
+            
+        }
+    
+
+        hentdata();
+
+
+    </script>
+</body>
+</html>
