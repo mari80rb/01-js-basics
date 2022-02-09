@@ -8,7 +8,11 @@
 
     <style>
 
-         p{
+        p{
+            margin-left: 2%;
+        }
+
+        #modal h2 {
             margin-left: 2%;
         }
 
@@ -38,13 +42,64 @@
         }
 
         .valgt {
-            background-color: green;
+            background-color: #f28b31;
         }
+
+        #modal {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: #00000055;
+            left: 0;
+            top: 0;
+        }
+
+        #modal article {
+            max-width: 50%;
+            margin: auto;
+            margin: block;
+            background-color: white;
+        }
+
+        body{
+            background-color: #df412c;
+        }
+
+        button {
+            margin: 2em 0 0 1.2em;
+            text-transform: capitalize;
+            background-color: #e9b587;
+            padding-block: 0.5%;
+            padding-inline: 5%;
+            border-radius: 5px;
+            border: solid;
+        }
+
+
     </style>
 
   
 </head>
 <body>
+
+    <header>
+        <div id="splash">
+            <img src="bistro.png" alt="">
+        </div>
+    </header>
+
+
+
+    <aside id="modal">
+        <article>
+          <img src="" alt="" />
+          <h2></h2>
+          <p class="langbeskrivelse"></p>
+          <p class="oprindelsesregion"></p>
+          <p class="pris"></p>
+        </article>
+      </aside>
 
     <h1>Menu</h1>
 
@@ -75,7 +130,7 @@
 
     <script>
 
-
+        const modal = document.querySelector("#modal");
         let menuliste;
         const header = document.querySelector(".kategori")
 
@@ -128,21 +183,31 @@
                     klon.querySelector(".pris").textContent = `Pris: ${menu.pris}` + ".-";
                 
                     klon.querySelector("img").src = "medium/" + menu.billednavn + "-md.jpg";
-
-
-
+                    klon.querySelector("img").addEventListener("click", () => visDetaljer(menu));
 
                     container.appendChild(klon);
 
                 }
 
-
-
             });
             
-            
-            
         }
+
+        function visDetaljer(menu) {
+            console.log(menu);
+            modal.querySelector("h2").textContent = menu.navn;
+            modal.querySelector(".langbeskrivelse").textContent = menu.langbeskrivelse;
+            modal.querySelector(".oprindelsesregion").textContent = `Oprindelsesregion: ${menu.oprindelsesregion}`;
+            modal.querySelector(".pris").textContent = `Pris: ${menu.pris}` + ".-";
+            
+            modal.querySelector("img").src = "medium/" + menu.billednavn + "-md.jpg";
+            modal.style.display = "block";
+
+
+        }
+
+        modal.addEventListener("click", () => (modal.style.display = "none"));
+
     
 
         hentdata();
